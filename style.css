@@ -1,4 +1,4 @@
-/* === ГЛОБАЛЬНЫЙ СБРОС СТИЛЕЙ === */
+/* === ГЛОБАЛЬНЫЙ СБРОС СТИЛЕ === */
 *,
 *::before,
 *::after {
@@ -180,3 +180,4 @@ body {
         background-image: url('img/mBackground0.png');
     }
 }
+
