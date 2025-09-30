@@ -8,7 +8,7 @@
 }
 
 :root {
-    --color-light: #F7F7F7;
+    --color-light: #e9e9e9;
     --color-dark: #1A1A1A;
     --border-radius-main: 14px;
     --font-main: 'Manrope', sans-serif;
@@ -181,4 +181,5 @@ body {
         background-image: url('img/mBackground0.png');
     }
 }
+
 
