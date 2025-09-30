@@ -1,0 +1,188 @@
+/* === ГЛОБАЛЬНЫЙ СБРОС СТИЛЕЙ === */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-light: #E9e9e9;
+    --color-dark: #1A1A1A;
+    --border-radius-main: 14px;
+    --font-main: 'Manrope', sans-serif;
+}
+
+body {
+    background-color: var(--color-light);
+    font-family: var(--font-main);
+    color: var(--color-dark);
+    overflow: hidden; /* JS включит скролл после анимации */
+}
+
+/* === СТИЛИ ИНТРО-АНИМАЦИИ === */
+#preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #111111;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
+    overflow: hidden;
+}
+#preloader.hidden {
+    transform: translateX(100%);
+}
+.words-container { display: flex; flex-direction: column; align-items: center; }
+.word {
+    font-family: var(--font-main); font-size: 4.5vw; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase; opacity: 0;
+    color: var(--color-light);
+    transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.5s ease;
+}
+.word.visible { opacity: 1; }
+.word.fly-out { transform: translateX(150vw); }
+#animated-logo-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; }
+#animated-logo { width: 12vw; max-width: 150px; height: auto; }
+#animated-logo-container.visible { opacity: 1; transition: opacity 0.3s ease-in; }
+#animated-logo-container.animate-logo { animation: logo-flight 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+@keyframes logo-flight {
+    0%   { left: -20%; top: 50%; transform: translate(-50%, -50%) scale(1.5); }
+    40%  { left: 50%; top: 50%; transform: translate(-50%, -50%) scale(1); }
+    100% { left: 40px; top: 32px; transform: translate(0, 0) scale(0.7); }
+}
+
+/* === ОБЕРТКА САЙТА === */
+.site-wrapper {
+    position: relative;
+    opacity: 0;
+    animation: fade-in-site 1s ease-out forwards;
+    animation-delay: 4s;
+}
+@keyframes fade-in-site {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === ХЕДЕР === */
+#main-header {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 80px);
+    max-width: 1200px;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--border-radius-main);
+}
+.logo-placeholder { width: 105px; height: auto; }
+.main-nav a { color: var(--color-dark); text-decoration: none; margin: 0 18px; font-size: 15px; font-weight: 400; transition: color 0.3s ease; }
+.main-nav a:hover { color: rgba(26, 26, 26, 0.6); }
+.cta-button-header { background: var(--color-dark); color: var(--color-light); border: none; padding: 8px 18px; border-radius: 10px; font-family: var(--font-main); font-weight: 700; font-size: 15px; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
+.cta-button-header:hover { background: #000; transform: scale(1.05); }
+
+
+/* === ГЛАВНЫЙ ЭКРАН === */
+#hero {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    background-image: url('img/background0.png');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: bottom center;
+}
+.hero-content {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 40px;
+}
+
+/* === СТИЛИ КОНТЕНТА === */
+.main-headline {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    max-width: 750px;
+}
+.sub-headline {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(26, 26, 26, 0.75);
+    max-width: 550px;
+    margin: 0 0 40px 0;
+}
+.cta-button-main {
+    background: transparent; color: var(--color-dark);
+    border: 1.5px solid var(--color-dark); padding: 14px 32px;
+    border-radius: var(--border-radius-main); font-family: var(--font-main);
+    font-weight: 700; font-size: 16px; cursor: pointer;
+    transition: all 0.3s ease;
+}
+.cta-button-main:hover {
+    background: var(--color-dark); color: var(--color-light);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* === АДАПТИВНОСТЬ (ИСПРАВЛЕНИЯ ЗДЕСЬ) === */
+@media (max-width: 768px) {
+    #main-header {
+        width: calc(100% - 50px);
+        padding: 17px 20px;
+    }
+
+    /* ЦЕНТРИРУЕМ НАВИГАЦИЮ */
+    .main-nav {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        
+        /* === ВОТ ОНО, РЕШЕНИЕ === */
+        width: 100%;             /* 1. Растягиваем контейнер навигации на всю ширину хедера */
+        display: flex;           /* 2. Делаем его flex-контейнером */
+        justify-content: center; /* 3. Центрируем ссылки внутри него */
+    }
+
+    /* Уменьшаем отступы между ссылками */
+    .main-nav a {
+        margin: 0 10px;
+        font-size: 14px;
+    }
+
+    /* Скрываем ТОЛЬКО большую кнопку */
+    .cta-button-header {
+        display: none;
+    }
+
+    /* Уменьшаем отступы для основного контента */
+    .hero-content {
+        padding: 0 20px;
+    }
+
+    /* Включаем мобильный фон */
+    #hero {
+        background-image: url('img/mBackground0.png');
+    }
+}
